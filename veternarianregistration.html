@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vet Expert Profile Form</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+        text-decoration: none;
+        list-style: none;
+    }
+
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: #A5D6E2;
+        padding: 20px;
+    }
+
+    .form-container {
+      max-width: 850px;
+      width: 100%;
+      background-color: #fff;
+      border-radius: 30px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      overflow: hidden;
+    }
+
+    h2 {
+      text-align: center;
+      color: #34558B;
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .section {
+      margin-bottom: 25px;
+    }
+
+    .section h3 {
+      color: #16a085;
+      margin-bottom: 15px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 13px 20px;
+      background: #f1f8e9;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      color: #333;
+      font-weight: 500;
+      transition: box-shadow 0.3s ease;
+    }
+
+    input:focus, textarea:focus {
+      box-shadow: 0 0 10px rgba(52, 85, 139, 0.5);
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    .submit-btn {
+      background-color: #34558B;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #088697;
+      transform: translateY(-3px);
+    }
+
+    button.geo-btn {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    button.geo-btn:hover {
+      background-color: #2e86c1;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Vet Expert Profile Form</h2>
+    <form action="submitVetExpertDetails" method="post">
+
+      <div class="section">
+        <h3>Personal Information</h3>
+        <div class="form-group">
+          <label for="fullName">Full Name:</label>
+          <input type="text" id="fullName" name="fullName" required>
+        </div>
+        <div class="form-group">
+          <label for="qualification">Qualification:</label>
+          <input type="text" id="qualification" name="qualification" required>
+        </div>
+        <div class="form-group">
+          <label for="experience">Experience (in years):</label>
+          <input type="number" id="experience" name="experience" required>
+        </div>
+        <div class="form-group">
+          <label for="specialization">Specialization:</label>
+          <input type="text" id="specialization" name="specialization">
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Clinic & Contact</h3>
+        <div class="form-group">
+          <label for="clinicName">Clinic Name:</label>
+          <input type="text" id="clinicName" name="clinicName">
+        </div>
+        <div class="form-group">
+          <label for="address">Clinic Address:</label>
+          <textarea id="address" name="address" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number:</label>
+          <input type="tel" id="phone" name="phone" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email">
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Geolocation</h3>
+        <div class="form-group">
+          <label>Share Your Current Location:</label>
+          <button type="button" class="geo-btn" onclick="getLocation()">Get Current Location</button>
+        </div>
+        <div class="form-group">
+          <label for="latitude">Latitude:</label>
+          <input type="text" id="latitude" name="latitude" readonly>
+        </div>
+        <div class="form-group">
+          <label for="longitude">Longitude:</label>
+          <input type="text" id="longitude" name="longitude" readonly>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          document.getElementById("latitude").value = position.coords.latitude;
+          document.getElementById("longitude").value = position.coords.longitude;
+        }, function(error) {
+          alert("Unable to retrieve your location. Please allow location access.");
+        });
+      } else {
+        alert("Geolocation is not supported by your browser.");
+      }
+    }
+  </script>
+</body>
+</html>

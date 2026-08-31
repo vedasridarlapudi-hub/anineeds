@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AniNeeds - Find Your Pet Friend</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts - Pacifico for the fancy font -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Global Styles */
+        :root {
+            --green-bg: #ADD8E6; /* Light Blue */
+            --blue-primary: #34558B;
+            --white: #ffffff;
+            --dark-gray: #333333;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark-gray);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .main-wrapper {
+            background-color: var(--green-bg);
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            padding: 20px 0;
+        }
+
+        .navbar-brand {
+            font-family: 'Pacifico', cursive;
+            font-size: 28px;
+            color: var(--blue-primary);
+            font-weight: 700;
+        }
+
+        .navbar-transparent {
+            background-color: transparent;
+        }
+
+        .nav-link {
+            color: var(--blue-primary) !important;
+            font-weight: 600;
+            margin: 0 10px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: var(--blue-primary) !important;
+            font-weight: 700;
+        }
+
+        .nav-link.active:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--blue-primary);
+        }
+
+        /* Dropdown menu */
+        .dropdown-menu {
+            background-color: var(--white);
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .dropdown-item {
+            color: var(--blue-primary);
+            font-weight: 500;
+            padding: 8px 20px;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(52, 85, 139, 0.1);
+            color: var(--blue-primary);
+        }
+
+        /* Hero Section - Main layout adjustment */
+        .hero-section {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Left side content - Precise positioning */
+        .hero-content {
+            position: absolute;
+            left: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            max-width: 500px;
+        }
+
+        .brand-name {
+            font-family: 'Pacifico', cursive;
+            font-size: 5rem;
+            color: var(--blue-primary);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .tagline {
+            font-size: 1.8rem;
+            color: var(--blue-primary);
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        .btn-get-started {
+            background-color: var(--blue-primary);
+            color: var(--white);
+            border: none;
+            padding: 12px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(52, 85, 139, 0.3);
+        }
+
+        .btn-get-started:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(52, 85, 139, 0.4);
+            background-color: #284678;
+            color: var(--white);
+        }
+
+        /* Pet Image Container - Right side positioning */
+        .pet-image-container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .pet-svg {
+            position: absolute;
+            transition: all 0.3s ease;
+            fill: var(--blue-primary);
+        }
+
+        /* Position the dog SVG */
+        .dog-svg {
+            width: 80%;
+            height: auto;
+            top: 15%;
+            right: 5%;
+            z-index: 2;
+        }
+
+        /* Position the cat SVG */
+        .cat-svg {
+            width: 65%;
+            height: auto;
+            bottom: 15%;
+            right: 15%;
+            z-index: 1;
+        }
+
+        /* White Section Styles */
+        .white-section {
+            background-color: var(--white);
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .white-section .container {
+            display: flex;
+            align-items: center;
+        }
+
+        .white-section .row {
+            width: 100%;
+        }
+
+        .white-section .col-md-6 {
+            display: flex;
+            align-items: center;
+        }
+
+        .white-section .centered-text {
+            margin-left: auto;
+            max-width: 500px;
+        }
+
+        .white-section .image-placeholder {
+            width: 100%;
+            height: 400px;
+            background-color: #f0f0f0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--blue-primary);
+        }
+
+        .animals-deserve {
+            color: var(--blue-primary);
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 30px;
+        }
+
+        .quick-actions {
+            margin-bottom: 40px;
+        }
+
+        .quick-action-link {
+            color: var(--blue-primary);
+            font-size: 1.2rem;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quick-action-link:hover {
+            color: #284678;
+        }
+
+        .help-animals-btn {
+            background-color: var(--blue-primary);
+            color: var(--white);
+            border: none;
+            padding: 12px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(52, 85, 139, 0.3);
+        }
+
+        .help-animals-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(52, 85, 139, 0.4);
+            background-color: #284678;
+            color: var(--white);
+        }
+
+        /* Tabs Section */
+        .tabs-section {
+            padding: 60px 0;
+            background-color: #f8f9fa;
+        }
+
+        .feature-tab {
+            background-color: var(--green-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            height: 100%;
+            transition: all 0.3s ease;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .feature-tab:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .tab-image {
+            width: 100%;
+            height: 150px;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .tab-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+
+        .feature-tab:hover .tab-image img {
+            transform: scale(1.1);
+        }
+
+        .tab-content {
+            padding: 20px;
+        }
+
+        .tab-content h3 {
+            color: var(--blue-primary);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .tab-content p {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1199.98px) {
+            .hero-content {
+                left: 5%;
+                max-width: 450px;
+            }
+            
+            .brand-name {
+                font-size: 4.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.6rem;
+            }
+            
+            .pet-image-container {
+                width: 65%;
+            }
+            
+            .animals-deserve {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 991.98px) {
+            .brand-name {
+                font-size: 4rem;
+            }
+            
+            .tagline {
+                font-size: 1.5rem;
+            }
+            
+            .navbar-collapse {
+                background-color: rgba(255, 255, 255, 0.95);
+                padding: 20px;
+                border-radius: 10px;
+                margin-top: 10px;
+            }
+            
+            .hero-content {
+                max-width: 400px;
+            }
+            
+            .pet-image-container {
+                width: 70%;
+            }
+            
+            .animals-deserve {
+                font-size: 2.8rem;
+            }
+            
+            .white-section {
+                padding: 80px 0;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .hero-content {
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+                max-width: 90%;
+                top: 40%;
+            }
+            
+            .brand-name {
+                font-size: 3.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.3rem;
+            }
+            
+            .btn-get-started {
+                padding: 10px 30px;
+                font-size: 1rem;
+            }
+            
+            .pet-image-container {
+                width: 100%;
+                height: 300px;
+                top: auto;
+                bottom: 0;
+            }
+            
+            .dog-svg {
+                width: 60%;
+                top: auto;
+                bottom: 10%;
+                right: 20%;
+            }
+            
+            .cat-svg {
+                width: 50%;
+                bottom: 30%;
+                right: 40%;
+            }
+            
+            .white-section {
+                padding: 60px 0;
+            }
+            
+            .centered-text {
+                text-align: center;
+                margin: 0 auto;
+            }
+            
+            .animals-deserve {
+                font-size: 2.5rem;
+            }
+            
+            .feature-tab {
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .brand-name {
+                font-size: 2.8rem;
+            }
+            
+            .tagline {
+                font-size: 1.1rem;
+                margin-bottom: 30px;
+            }
+            
+            .pet-image-container {
+                height: 150vh;
+                width:70%;
+            }
+            
+            .dog-svg {
+                width: 55%;
+            }
+            
+            .cat-svg {
+                width: 45%;
+            }
+            
+            .animals-deserve {
+                font-size: 2.2rem;
+            }
+            
+            .white-section {
+                padding: 50px 0;
+            }
+            
+            .quick-action-link {
+                font-size: 1rem;
+            }
+            
+            .help-animals-btn {
+                padding: 10px 30px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper">
+        <!-- Navigation Bar -->
+        <nav class="navbar navbar-expand-lg navbar-transparent">
+            <div class="container">
+                <a class="navbar-brand" href="landingpage.html">AniNeeds</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="landingpage.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="profilepage.html">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="lost&foundpets.html">Lost &amp; Found</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="vettips.html">Vet Tips</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                More
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                                <li><a class="dropdown-item" href="profile.html">My Account</a></li>
+                                <li><a class="dropdown-item" href="lastloginscreen.html">Login / Register</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="landingpage.html">Sign Out</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <!-- Left side content -->
+            <div class="hero-content">
+                <h1 class="brand-name">AniNeeds</h1>
+                <p class="tagline">Find your friend</p>
+                <a class="btn btn-primary btn-get-started" href="lastloginscreen.html">Get Started</a>
+            </div>
+            
+            <!-- Right side pet images -->
+            <div class="pet-image-container">
+                <img src="dogpicture.png" alt="!!">                
+            </div>
+        </section>
+    </div>
+
+    <!-- White Section -->
+    <section class="white-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="image-placeholder">
+                        <span>Placeholder for Image</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="centered-text">
+                        <h2 class="animals-deserve">
+                            Every Animal<br>
+                            Deserves to be<br>
+                            loved!
+                        </h2>
+                        
+                        <div class="quick-actions">
+                            <a href="lost&foundpets.html" class="quick-action-link" data-bs-toggle="dropdown">
+                                <span>Report, Found Animal, Share, 🐾 Adopt</span>
+                                <i class="fas fa-chevron-down ms-2"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="lost&foundpets.html">Report</a></li>
+                                <li><a class="dropdown-item" href="lost&foundpets.html">Found Animal</a></li>
+                                <li><a class="dropdown-item" href="profilepage.html">Share</a></li>
+                                <li><a class="dropdown-item" href="vettips.html">🐾 Adopt</a></li>
+                            </ul>
+                        </div>
+                        
+                        <a class="btn btn-primary help-animals-btn" href="lost&foundpets.html">Help Animals</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tabs Section -->
+    <section class="tabs-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <a href="lost&foundpets.html" class="text-decoration-none">
+                        <div class="feature-tab">
+                            <div class="tab-image">
+                                <img src="https://via.placeholder.com/400x300" alt="Rescue team" class="img-fluid">
+                            </div>
+                            <div class="tab-content">
+                                <h3>Rescue Team</h3>
+                                <p>Our dedicated rescue team responds to animal emergencies 24/7</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <a href="vettips.html" class="text-decoration-none">
+                        <div class="feature-tab">
+                            <div class="tab-image">
+                                <img src="https://via.placeholder.com/400x300" alt="Vet tips" class="img-fluid">
+                            </div>
+                            <div class="tab-content">
+                                <h3>Vet Tips</h3>
+                                <p>Expert veterinary advice to keep your pets healthy and happy</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <a href="animalneedstoreregistration.html" class="text-decoration-none">
+                        <div class="feature-tab">
+                            <div class="tab-image">
+                                <img src="https://via.placeholder.com/400x300" alt="Animal need store" class="img-fluid">
+                            </div>
+                            <div class="tab-content">
+                                <h3>Animal Need Store</h3>
+                                <p>Quality supplies for all your pet care needs</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <a href="lost&foundpets.html" class="text-decoration-none">
+                        <div class="feature-tab">
+                            <div class="tab-image">
+                                <img src="https://via.placeholder.com/400x300" alt="Report lost or found animals" class="img-fluid">
+                            </div>
+                            <div class="tab-content">
+                                <h3>Report Lost or Found Animals</h3>
+                                <p>Help reunite pets with their owners</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

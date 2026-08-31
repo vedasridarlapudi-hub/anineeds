@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Care Tips</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        :root {
+            --bg-color: #F0F8FF; /* Main background (harshini) */
+            --text-color: #333;
+            --card-bg: #A5D6E2; /* Card background */
+            --card-border: #B3EBF2; /* Card border (tabs) */
+            --navbar-bg: rgba(165, 214, 226, 0.9);
+            --footer-bg: rgba(165, 214, 226, 0.9);
+            --primary-font: 'Poppins', sans-serif;
+            --secondary-font: 'Open Sans', sans-serif;
+            --accent-color: #088697; /* Additional color */
+            --button-color: #34558B; /* Buttons color */
+            --button-hover: #2a4670; /* Button hover */
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a2e35;
+            --text-color: #e0e0e0;
+            --card-bg: #2d4a53;
+            --card-border: #088697;
+            --navbar-bg: rgba(53, 85, 139, 0.9);
+            --footer-bg: rgba(53, 85, 139, 0.9);
+            --accent-color: #B3EBF2;
+            --button-color: #088697;
+            --button-hover: #0a9cb0;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--bg-color), #e2f3f5);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-family: var(--primary-font);
+            color: var(--text-color);
+            scroll-behavior: smooth;
+            line-height: 1.6;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: var(--text-color);
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin: 10px 0;
+            color: var(--text-color);
+        }
+
+        p {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin: 5px 0;
+            font-family: var(--secondary-font);
+        }
+
+        /* Tips List Section */
+        .tips-list {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .tip-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            border: 2px solid var(--card-border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .tip-card h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+
+        .tip-card p {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin: 5px 0;
+        }
+
+        .badge {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.875rem;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-family: var(--secondary-font);
+        }
+
+        /* Upload Tips Form */
+        .upload-form {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            border: 2px solid var(--card-border);
+        }
+
+        .upload-form input,
+        .upload-form textarea,
+        .upload-form button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: var(--secondary-font);
+            font-size: 1rem;
+        }
+
+        .upload-form button {
+            background-color: var(--button-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .upload-form button:hover {
+            background-color: var(--button-hover);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--footer-bg);
+            padding: 20px;
+            text-align: center;
+            margin-top: auto;
+            box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer p {
+            margin: 0;
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: var(--button-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Pet Care Tips</h1>
+
+        <!-- Tips List Section -->
+        <div class="tips-list">
+            <div class="tip-card">
+                <h2>Dr. John Doe</h2>
+                <p><strong>Tip:</strong> Always make sure your pet is hydrated and gets regular checkups.</p>
+                <p><strong>Category:</strong> General Health</p>
+                <span class="badge">Vet Expert</span>
+            </div>
+
+            <div class="tip-card">
+                <h2>Jane Smith</h2>
+                <p><strong>Tip:</strong> Brush your pet's fur daily to reduce shedding and prevent tangles.</p>
+                <p><strong>Category:</strong> Grooming</p>
+            </div>
+        </div>
+
+        <!-- Upload Tips Form -->
+        <div class="upload-form">
+            <h2>Share Your Pet Care Tip</h2>
+            <form>
+                <input type="text" name="name" placeholder="Your Name" required>
+                <textarea name="tip" placeholder="Enter your pet care tip" rows="4" required></textarea>
+                <input type="text" name="category" placeholder="Category (e.g., Grooming, Health, Nutrition)" required>
+                <button type="submit">Submit Tip</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2023 Pet Care Tips. All rights reserved. | <a href="#">Privacy Policy</a></p>
+    </footer>
+</body>
+</html>

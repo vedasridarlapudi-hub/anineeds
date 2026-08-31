@@ -1,0 +1,492 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AniNeeds - Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #f9d5e5;
+      --text-color: #333;
+      --card-bg: white;
+      --card-border: #ff6f61;
+      --navbar-bg: rgba(255, 255, 255, 0.9);
+      --footer-bg: rgba(255, 255, 255, 0.9);
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #1e1e1e;
+      --text-color: #f8f9fa;
+      --card-bg: #333;
+      --card-border: #ff4a3d;
+      --navbar-bg: rgba(51, 51, 51, 0.9);
+      --footer-bg: rgba(51, 51, 51, 0.9);
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--bg-color), #e2f3f5);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-color);
+      scroll-behavior: smooth;
+    }
+
+    /* Sticky Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--navbar-bg);
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-brand {
+      color: #ff6f61;
+      font-size: 1.8rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-brand img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+      border: 2px solid #ff6f61;
+    }
+
+    .navbar-nav .nav-link {
+      color: var(--text-color);
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .navbar-nav .nav-link::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #ff6f61;
+      transition: width 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      position: relative;
+      background: url("images/background.jpg") center/cover no-repeat;
+      height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.9);
+      font-size: 3rem;
+      font-weight: bold;
+      text-align: center;
+      width: 100%;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .hero-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-buttons {
+      position: absolute;
+      bottom: 10%;
+      display: flex;
+      gap: 15px;
+      animation: slideUp 1.5s ease-in-out;
+    }
+
+    .hero-buttons .btn {
+      background: #ff6f61;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .hero-buttons .btn:hover {
+      background: #ff4a3d;
+      transform: translateY(-5px);
+    }
+
+    /* Options Container */
+    .options-container {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 40px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      width: 100%;
+    }
+
+    .user-type-card {
+      width: 180px;
+      text-align: center;
+      padding: 20px;
+      background: var(--card-bg);
+      border-radius: 15px;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 2px solid var(--card-border);
+    }
+
+    .user-type-card:hover {
+      transform: scale(1.1);
+      box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .user-type-card img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .user-type-card img.lazy-loaded {
+      opacity: 1;
+    }
+
+    .user-type-card h5 {
+      margin-top: 10px;
+      color: var(--text-color);
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    /* Testimonials Section */
+    .testimonials-section {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .testimonials-section h2 {
+      font-size: 2.5rem;
+      color: #ff6f61;
+      margin-bottom: 20px;
+    }
+
+    .testimonial-card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 20px;
+      margin: 10px;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-10px);
+    }
+
+    /* Statistics Section */
+    .statistics-section {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .statistics-section h2 {
+      font-size: 2.5rem;
+      color: #ff6f61;
+      margin-bottom: 20px;
+    }
+
+    .statistic-card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 20px;
+      margin: 10px;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .statistic-card:hover {
+      transform: translateY(-10px);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--footer-bg);
+      padding: 20px;
+      text-align: center;
+      margin-top: auto;
+      box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .footer p {
+      margin: 0;
+      color: var(--text-color);
+      font-size: 0.9rem;
+    }
+
+    .footer a {
+      color: #ff6f61;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer a:hover {
+      color: #ff4a3d;
+    }
+
+    .footer .social-icons {
+      margin-top: 10px;
+    }
+
+    .footer .social-icons a {
+      color: var(--text-color);
+      margin: 0 10px;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer .social-icons a:hover {
+      color: #ff6f61;
+    }
+
+    /* Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #ff6f61;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      transition: background 0.3s ease;
+    }
+
+    .back-to-top:hover {
+      background: #ff4a3d;
+    }
+
+    /* Floating Feedback Button */
+    .feedback-button {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      background: #ff6f61;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .feedback-button:hover {
+      background: #ff4a3d;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Dark Mode Toggle -->
+  <div class="dark-mode-toggle" onclick="toggleDarkMode()">
+    <i class="fas fa-moon"></i>
+  </div>
+
+  <!-- Sticky Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="images/panda.jpg" alt="AniNeeds Logo">
+        AniNeeds
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Donate</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Volunteer</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="hero-section">
+    A place where every animal finds love and care.
+    <div class="hero-buttons">
+      <button class="btn">Adopt Now</button>
+      <button class="btn">Donate</button>
+    </div>
+  </div>
+
+  <!-- Options Container -->
+  <div class="options-container">
+    <div class="user-type-card" onclick="selectUserType('Veterinarian')">
+      <img class="lazy" data-src="images/vetttt.jpg" alt="Veterinarian">
+      <h5>Veterinarian</h5>
+    </div>
+    <div class="user-type-card" onclick="selectUserType('Vet Expert')">
+      <img class="lazy" data-src="images/vetexpert.jpg" alt="Vet Expert">
+      <h5>Vet Expert</h5>
+    </div>
+    <div class="user-type-card" onclick="selectUserType('Rescue Team')">
+      <img class="lazy" data-src="images/rescue.jpg" alt="Rescue Team">
+      <h5>Rescue Team</h5>
+    </div>
+    <div class="user-type-card" onclick="selectUserType('Animal Needs Store')">
+      <img class="lazy" data-src="images/stores.jpg" alt="Animal Needs Store">
+      <h5>Animal Needs Store</h5>
+    </div>
+    <div class="user-type-card" onclick="selectUserType('Regular Pet Lover/User')">
+      <img class="lazy" data-src="images/petuser.jpg" alt="Regular Pet Lover/User">
+      <h5>Regular Pet Lover/User</h5>
+    </div>
+    <div class="user-type-card" onclick="selectUserType('Animal Sales Store')">
+      <img class="lazy" data-src="images/animalstore.jpg" alt="Animal Sales Store">
+      <h5>Animal Sales Store</h5>
+    </div>
+  </div>
+
+  <!-- Testimonials Section -->
+  <div class="testimonials-section">
+    <h2>What Our Users Say</h2>
+    <div class="testimonial-card">
+      <p>"AniNeeds is amazing! I found the perfect pet for my family."</p>
+      <p>- ash</p>
+    </div>
+    <div class="testimonial-card">
+      <p>"The rescue team was so helpful and caring.!"</p>
+      <p>- misty</p>
+    </div>
+  </div>
+
+  <!-- Statistics Section -->
+  <div class="statistics-section">
+    <h2>facts</h2>
+    <div class="statistic-card">
+      <p>Over 1,000 pets adopted this year!</p>
+    </div>
+    <div class="statistic-card">
+      <p>500+ volunteers helping animals in need.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Made with ❤ by <a href="#" target="_blank">AniNeeds</a></p>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <div class="back-to-top" onclick="scrollToTop()">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <!-- Floating Feedback Button -->
+  <div class="feedback-button" onclick="openFeedbackForm()">
+    <i class="fas fa-comment"></i>
+  </div>
+
+  <script>
+    // Dark Mode Toggle
+    function toggleDarkMode() {
+      const body = document.body;
+      body.setAttribute('data-theme', body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    }
+
+    // Back to Top Button
+    const backToTopButton = document.querySelector('.back-to-top');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTopButton.style.display = 'block';
+      } else {
+        backToTopButton.style.display = 'none';
+      }
+    });
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Lazy Loading
+    const lazyImages = document.querySelectorAll('.lazy');
+
+    const lazyLoad = (target) => {
+      const io = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.classList.add('lazy-loaded');
+            observer.unobserve(img);
+          }
+        });
+      });
+
+      io.observe(target);
+    };
+
+    lazyImages.forEach(lazyLoad);
+
+    // Feedback Button
+    function openFeedbackForm() {
+      alert("Feedback form will open here!");
+    }
+
+    // Select User Type
+    function selectUserType(userType) {
+      alert("You selected: " + userType);
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

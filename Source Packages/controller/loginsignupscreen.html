@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Paradise Login</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #f9d5e5, #e2f3f5);
+            color: #333;
+        }
+        .login-box {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 80px 60px 80px 60px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ffb6c1;
+            max-width: 600px;
+        }
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #ff6f61;
+            font-family: 'Comic Sans MS', cursive;
+        }
+        input {
+            display: block;
+            margin: 15px auto;
+            padding: 10px;
+            width: 80%;
+            border: 2px solid #ffb6c1;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+            font-size: 1rem;
+            outline: none;
+        }
+        input::placeholder {
+            color: #aaa;
+        }
+        button {
+            padding: 10px;
+            width: 80%;
+            background: #ff6f61;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #ff4a3d;
+        }
+        .pet-icon {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            background: url('images/owl.jpg') no-repeat center center;
+            background-size: cover;
+            border-radius: 50%;
+            border: 2px solid #ffb6c1;
+        }
+        .footer-text {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+        .signup-link {
+            display: block;
+            margin-top: 10px;
+            color: #ff6f61;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        .signup-link:hover {
+            color: #ff4a3d;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <div class="pet-icon"></div>
+        <h2>Pet Paradise</h2>
+        <form action="login.jsp" method="post">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Sign In</button>
+        </form>
+        <a href="signup.html" class="signup-link">Don't have an account? Sign Up</a>
+        <p class="footer-text">Join our pet-loving community!</p>
+    </div>
+</body>
+</html>

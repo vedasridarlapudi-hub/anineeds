@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Animal Needs Store Profile Form</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #f6f9fc, #e3f2fd);
+      padding: 40px 15px;
+    }
+
+    .form-container {
+      max-width: 900px;
+      margin: auto;
+      background: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      padding: 40px;
+      transition: all 0.3s ease;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2d3436;
+      margin-bottom: 30px;
+      font-weight: 600;
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    .section h3 {
+      color: #0984e3;
+      font-size: 20px;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #2f3542;
+      font-weight: 500;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border-radius: 10px;
+      border: 1.5px solid #dcdde1;
+      font-size: 16px;
+      transition: all 0.2s ease-in-out;
+      background-color: #f9f9f9;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #0984e3;
+      outline: none;
+      background-color: #ffffff;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    .submit-btn, .geo-btn {
+      background-color: #0984e3;
+      color: #ffffff;
+      padding: 14px 28px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+      margin-top: 10px;
+    }
+
+    .geo-btn {
+      background-color: #00b894;
+      margin-top: 5px;
+    }
+
+    .submit-btn:hover {
+      background-color: #0652dd;
+    }
+
+    .geo-btn:hover {
+      background-color: #019374;
+    }
+
+    @media (max-width: 600px) {
+      .form-container {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Animal Needs Store Profile Form</h2>
+    <form action="submitAnimalNeedsStore" method="post">
+
+      <div class="section">
+        <h3>Store Information</h3>
+        <div class="form-group">
+          <label for="storeName">Store Name:</label>
+          <input type="text" id="storeName" name="storeName" required>
+        </div>
+        <div class="form-group">
+          <label for="ownerName">Owner Name:</label>
+          <input type="text" id="ownerName" name="ownerName" required>
+        </div>
+        <div class="form-group">
+          <label for="address">Store Address:</label>
+          <textarea id="address" name="address" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="phone">Contact Number:</label>
+          <input type="tel" id="phone" name="phone" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address:</label>
+          <input type="email" id="email" name="email">
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Products & Services</h3>
+        <div class="form-group">
+          <label for="products">Products Offered (e.g. food, toys, accessories):</label>
+          <textarea id="products" name="products" rows="2"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="services">Additional Services (e.g. grooming, delivery):</label>
+          <textarea id="services" name="services" rows="2"></textarea>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Store Location</h3>
+        <div class="form-group">
+          <label>Share Your Current Location:</label>
+          <button type="button" class="geo-btn" onclick="getLocation()">Get Current Location</button>
+        </div>
+        <div class="form-group">
+          <label for="latitude">Latitude:</label>
+          <input type="text" id="latitude" name="latitude" readonly>
+        </div>
+        <div class="form-group">
+          <label for="longitude">Longitude:</label>
+          <input type="text" id="longitude" name="longitude" readonly>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">Submit Store Profile</button>
+    </form>
+  </div>
+
+  <script>
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    }
+
+    function showPosition(position) {
+      document.getElementById("latitude").value = position.coords.latitude;
+      document.getElementById("longitude").value = position.coords.longitude;
+    }
+
+    function showError(error) {
+      switch (error.code) {
+        case error.PERMISSION_DENIED:
+          alert("Permission denied. Please allow location access.");
+          break;
+        case error.POSITION_UNAVAILABLE:
+          alert("Location information is unavailable.");
+          break;
+        case error.TIMEOUT:
+          alert("The request to get your location timed out.");
+          break;
+        default:
+          alert("An unknown error occurred.");
+      }
+    }
+  </script>
+</body>
+</html>

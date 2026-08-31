@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Failed</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #f9d5e5, #e2f3f5);
+            color: #333;
+        }
+        .notification {
+            background: #ff6f61; /* Coral color for error */
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            font-size: 1.2rem;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ff4a3d; /* Darker coral border */
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .pet-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 15px;
+            background: url('https://example.com/pet-icon.png') no-repeat center center;
+            background-size: cover;
+            border-radius: 50%;
+            border: 2px solid #ffb6c1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="notification">
+        <div class="pet-icon"></div>
+        ❌ Oops! Looks like you're not a registered user.
+    </div>
+
+    <script>
+        setTimeout(() => {
+            window.location.href = "registrationandloginscreen.html"; // Redirect back to login page
+        }, 3000); // Redirect after 3 seconds
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: #A5D6E2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .profile-container {
+            background: #fff;
+            width: 800px;
+            border-radius: 30px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            position: relative;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-header h1 {
+            color: #34558B;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            display: block;
+            border: 5px solid #B3EBF2;
+        }
+
+        .profile-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            margin-bottom: 15px;
+        }
+
+        .info-item h3 {
+            color: #34558B;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .info-item p {
+            background: #f1f8e9;
+            padding: 12px 20px;
+            border-radius: 8px;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-edit {
+            background: #34558B;
+            color: #fff;
+        }
+
+        .btn-edit:hover {
+            background: #088697;
+            transform: translateY(-3px);
+        }
+
+        .btn-logout {
+            background: #f1f8e9;
+            color: #34558B;
+            border: 2px solid #34558B;
+        }
+
+        .btn-logout:hover {
+            background: #e0f0ff;
+            transform: translateY(-3px);
+        }
+
+        /* Edit form styling */
+        .edit-form {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #fff;
+            padding: 40px;
+            border-radius: 30px;
+            z-index: 10;
+        }
+
+        .edit-form h2 {
+            color: #34558B;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .input-box {
+            position: relative;
+            margin: 15px 0;
+            width: 100%;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 13px 20px;
+            background: #f1f8e9;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .btn-save {
+            background: #088697;
+            color: #fff;
+        }
+
+        .btn-cancel {
+            background: #f1f8e9;
+            color: #34558B;
+            border: 2px solid #34558B;
+        }
+
+        @media (max-width: 768px) {
+            .profile-container {
+                width: 90%;
+                padding: 30px 20px;
+            }
+
+            .profile-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-content" id="profileContent">
+            <div class="profile-header">
+                <img src="https://via.placeholder.com/150" alt="Profile Picture" class="profile-picture" id="profileImage">
+                <h1 id="profileUsername">Username</h1>
+            </div>
+            
+            <div class="profile-info">
+                <div class="info-item">
+                    <h3>Email</h3>
+                    <p id="profileEmail">user@example.com</p>
+                </div>
+                <div class="info-item">
+                    <h3>Phone Number</h3>
+                    <p id="profilePhone">+1234567890</p>
+                </div>
+                <div class="info-item">
+                    <h3>Address</h3>
+                    <p id="profileAddress">123 Main St, City, Country</p>
+                </div>
+                <div class="info-item">
+                    <h3>Member Since</h3>
+                    <p id="profileDate">January 1, 2023</p>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="btn btn-edit" id="editProfileBtn">Edit Profile</button>
+                <button class="btn btn-logout">Logout</button>
+            </div>
+        </div>
+        
+        <div class="edit-form" id="editForm">
+            <h2>Edit Profile</h2>
+            <form id="profileForm">
+                <div class="input-box">
+                    <input type="text" id="editUsername" placeholder="Username" required>
+                </div>
+                <div class="input-box">
+                    <input type="email" id="editEmail" placeholder="Email" required>
+                </div>
+                <div class="input-box">
+                    <input type="tel" id="editPhone" placeholder="Phone Number" required>
+                </div>
+                <div class="input-box">
+                    <input type="text" id="editAddress" placeholder="Address" required>
+                </div>
+                <div class="input-box">
+                    <input type="file" id="editImage" accept="image/*">
+                </div>
+                <div class="form-buttons">
+                    <button type="button" class="btn btn-save" id="saveProfileBtn">Save Changes</button>
+                    <button type="button" class="btn btn-cancel" id="cancelEditBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Get DOM elements
+        const profileContent = document.getElementById('profileContent');
+        const editForm = document.getElementById('editForm');
+        const editProfileBtn = document.getElementById('editProfileBtn');
+        const cancelEditBtn = document.getElementById('cancelEditBtn');
+        const saveProfileBtn = document.getElementById('saveProfileBtn');
+        
+        // Get profile display elements
+        const profileUsername = document.getElementById('profileUsername');
+        const profileEmail = document.getElementById('profileEmail');
+        const profilePhone = document.getElementById('profilePhone');
+        const profileAddress = document.getElementById('profileAddress');
+        const profileImage = document.getElementById('profileImage');
+        
+        // Get edit form elements
+        const editUsername = document.getElementById('editUsername');
+        const editEmail = document.getElementById('editEmail');
+        const editPhone = document.getElementById('editPhone');
+        const editAddress = document.getElementById('editAddress');
+        const editImage = document.getElementById('editImage');
+        
+        // Set current date for "Member Since"
+        document.getElementById('profileDate').textContent = new Date().toLocaleDateString('en-US', {
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric'
+        });
+        
+        // Retrieve user data from localStorage (set during registration)
+        window.addEventListener('load', () => {
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            
+            if (userData) {
+                profileUsername.textContent = userData.username;
+                profileEmail.textContent = userData.email;
+                profilePhone.textContent = userData.phone;
+                profileAddress.textContent = userData.address;
+                
+                // Set values in edit form
+                editUsername.value = userData.username;
+                editEmail.value = userData.email;
+                editPhone.value = userData.phone;
+                editAddress.value = userData.address;
+            }
+        });
+        
+        // Toggle edit form
+        editProfileBtn.addEventListener('click', () => {
+            profileContent.style.display = 'none';
+            editForm.style.display = 'block';
+        });
+        
+        cancelEditBtn.addEventListener('click', () => {
+            profileContent.style.display = 'block';
+            editForm.style.display = 'none';
+        });
+        
+        // Handle image upload
+        editImage.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    profileImage.src = event.target.result;
+                    // Save to localStorage
+                    const userData = JSON.parse(localStorage.getItem('userData')) || {};
+                    userData.profileImage = event.target.result;
+                    localStorage.setItem('userData', JSON.stringify(userData));
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Save profile changes
+        saveProfileBtn.addEventListener('click', () => {
+            // Update displayed values
+            profileUsername.textContent = editUsername.value;
+            profileEmail.textContent = editEmail.value;
+            profilePhone.textContent = editPhone.value;
+            profileAddress.textContent = editAddress.value;
+            
+            // Save to localStorage
+            const userData = {
+                username: editUsername.value,
+                email: editEmail.value,
+                phone: editPhone.value,
+                address: editAddress.value,
+                profileImage: profileImage.src
+            };
+            localStorage.setItem('userData', JSON.stringify(userData));
+            
+            // Hide edit form
+            profileContent.style.display = 'block';
+            editForm.style.display = 'none';
+            
+            alert('Profile updated successfully!');
+        });
+    </script>
+</body>
+</html>

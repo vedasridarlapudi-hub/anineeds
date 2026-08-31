@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AniNeeds - Lost & Found Pets</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #A5D6E2;
+      --secondary-bg: #B3EBF2;
+      --accent-color: #088697;
+      --primary-color: #34558B;
+      --text-color: #333;
+      --card-bg: white;
+      --navbar-bg: rgba(255, 255, 255, 0.9);
+      --footer-bg: rgba(255, 255, 255, 0.9);
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #1e1e1e;
+      --text-color: #f8f9fa;
+      --card-bg: #333;
+      --navbar-bg: rgba(51, 51, 51, 0.9);
+      --footer-bg: rgba(51, 51, 51, 0.9);
+    }
+
+    body {
+      background: var(--bg-color);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-color);
+      scroll-behavior: smooth;
+    }
+
+    /* Sticky Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--navbar-bg);
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-brand {
+      color: var(--primary-color);
+      font-size: 1.8rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-brand img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+      border: 2px solid var(--primary-color);
+    }
+
+    .navbar-nav .nav-link {
+      color: var(--text-color);
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .navbar-nav .nav-link::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary-color);
+      transition: width 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Main Content */
+    .main-content {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .main-content h1 {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .tab-button {
+      padding: 12px 30px;
+      background: white;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary-color);
+      transition: all 0.3s ease;
+      border-radius: 8px 8px 0 0;
+      margin: 0 5px;
+      box-shadow: 0px -2px 5px rgba(0,0,0,0.1);
+    }
+
+    .tab-button.active {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    /* Forms */
+    .form-container {
+      display: flex;
+      justify-content: center;
+    }
+
+    .form-card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 30px;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+      border: 2px solid var(--secondary-bg);
+    }
+
+    .form-card h2 {
+      font-size: 1.8rem;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+    }
+
+    .form-card label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: var(--primary-color);
+      text-align: left;
+    }
+
+    .form-card input,
+    .form-card textarea,
+    .form-card select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: #f1f8e9;
+    }
+
+    .form-card input:focus,
+    .form-card textarea:focus,
+    .form-card select:focus {
+      box-shadow: 0 0 10px rgba(52, 85, 139, 0.5);
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .form-card button {
+      background: var(--primary-color);
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+      width: 100%;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    .form-card button:hover {
+      background: var(--accent-color);
+      transform: translateY(-3px);
+    }
+
+    /* Hidden form */
+    .hidden {
+      display: none;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--footer-bg);
+      padding: 20px;
+      text-align: center;
+      margin-top: auto;
+      box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .footer p {
+      margin: 0;
+      color: var(--text-color);
+      font-size: 0.9rem;
+    }
+
+    .footer a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer a:hover {
+      color: var(--accent-color);
+    }
+
+    .footer .social-icons {
+      margin-top: 10px;
+    }
+
+    .footer .social-icons a {
+      color: var(--primary-color);
+      margin: 0 10px;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer .social-icons a:hover {
+      color: var(--accent-color);
+    }
+
+    @media (max-width: 768px) {
+      .main-content {
+        padding: 20px 10px;
+      }
+      
+      .tab-button {
+        padding: 10px 20px;
+        font-size: 1rem;
+      }
+      
+      .form-card {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar-brand {
+        font-size: 1.3rem;
+      }
+      
+      .main-content h1 {
+        font-size: 2rem;
+      }
+      
+      .tabs {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .tab-button {
+        width: 100%;
+        margin: 5px 0;
+        border-radius: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sticky Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="images/anineeds-logo.png" alt="AniNeeds Logo">
+        AniNeeds
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Donate</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Volunteer</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <h1>Lost & Found Pets</h1>
+    
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-button active" onclick="showForm('lost')">Lost Pet</button>
+      <button class="tab-button" onclick="showForm('found')">Found Pet</button>
+    </div>
+    
+    <div class="form-container">
+      <!-- Lost Pet Form -->
+      <div id="lost-form" class="form-card">
+        <h2>Report a Lost Pet</h2>
+        <form id="lost-pet-form">
+          <label for="lost-pet-name">Pet Name</label>
+          <input type="text" id="lost-pet-name" name="lost-pet-name" required>
+
+          <label for="lost-pet-type">Pet Type</label>
+          <select id="lost-pet-type" name="lost-pet-type" required>
+            <option value="">Select Pet Type</option>
+            <option value="dog">Dog</option>
+            <option value="cat">Cat</option>
+            <option value="bird">Bird</option>
+            <option value="other">Other</option>
+          </select>
+
+          <label for="lost-pet-description">Description</label>
+          <textarea id="lost-pet-description" name="lost-pet-description" rows="4" required></textarea>
+
+          <label for="lost-pet-location">Last Seen Location</label>
+          <input type="text" id="lost-pet-location" name="lost-pet-location" required>
+
+          <label for="lost-pet-image">Upload Photo</label>
+          <input type="file" id="lost-pet-image" name="lost-pet-image" accept="image/*" required>
+
+          <button type="submit">Submit Report</button>
+        </form>
+      </div>
+
+      <!-- Found Pet Form -->
+      <div id="found-form" class="form-card hidden">
+        <h2>Report a Found Pet</h2>
+        <form id="found-pet-form">
+          <label for="found-pet-type">Pet Type</label>
+          <select id="found-pet-type" name="found-pet-type" required>
+            <option value="">Select Pet Type</option>
+            <option value="dog">Dog</option>
+            <option value="cat">Cat</option>
+            <option value="bird">Bird</option>
+            <option value="other">Other</option>
+          </select>
+
+          <label for="found-pet-description">Description</label>
+          <textarea id="found-pet-description" name="found-pet-description" rows="4" required></textarea>
+
+          <label for="found-pet-location">Found Location</label>
+          <input type="text" id="found-pet-location" name="found-pet-location" required>
+           <div>
+          <label for="found-pet-image">Upload Photo</label>
+<div class="container">
+        <h2>Upload Your Pet's Photo</h2>
+        <div class="mb-3">
+            <label for="petPhoto" class="form-label">Pet Photo</label>
+            <div class="upload-area" id="uploadArea">
+                <i class="fas fa-camera"></i>
+                <p>Click to take or upload a photo of your pet</p>
+                <input type="file" id="petPhoto" accept="image/*" capture="user" style="display: none;">
+                <img id="photoPreview" class="photo-preview" alt="Pet photo preview">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const uploadArea = document.getElementById('uploadArea');
+            const petPhotoInput = document.getElementById('petPhoto');
+            const photoPreview = document.getElementById('photoPreview');
+
+            uploadArea.addEventListener('click', () => {
+                petPhotoInput.click();
+            });
+
+            petPhotoInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        photoPreview.src = e.target.result;
+                        photoPreview.style.display = 'block';
+                        uploadArea.querySelector('p').textContent = 'Change photo';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    </script>
+          
+          </div>
+          <button type="submit">Submit Report</button>
+        </form>
+      </div>
+    </div>
+  </div>
+        
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Made with ❤ by <a href="#" target="_blank">AniNeeds</a></p>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    // Handle form submissions
+    document.getElementById('lost-pet-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Lost pet report submitted! We will help you find your furry friend.');
+    });
+
+    document.getElementById('found-pet-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Found pet report submitted! Thank you for helping this pet find its home.');
+    });
+
+    // Tab functionality
+    function showForm(formType) {
+      // Update tab buttons
+      document.querySelectorAll('.tab-button').forEach(button => {
+        button.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      
+      // Show selected form
+      if (formType === 'lost') {
+        document.getElementById('lost-form').classList.remove('hidden');
+        document.getElementById('found-form').classList.add('hidden');
+      } else {
+        document.getElementById('lost-form').classList.add('hidden');
+        document.getElementById('found-form').classList.remove('hidden');
+      }
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

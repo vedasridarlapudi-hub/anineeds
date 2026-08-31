@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pet Lover Profile Form</title>
+  <style>
+    /* Integrated CSS */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+        text-decoration: none;
+        list-style: none;
+    }
+
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: #A5D6E2; /* Updated background color */
+        padding: 20px;
+    }
+
+    .form-container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      border-radius: 30px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      color: #34558B;
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    
+    .section {
+      margin-bottom: 25px;
+    }
+    
+    .section h3 {
+      color: #e67e22;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: #34558B;
+    }
+    
+    input, textarea {
+      width: 100%;
+      padding: 13px 20px;
+      background: #f1f8e9;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      color: #333;
+      font-weight: 500;
+      transition: box-shadow 0.3s ease;
+    }
+    
+    input:focus, textarea:focus {
+      box-shadow: 0 0 10px rgba(52, 85, 139, 0.5);
+    }
+    
+    input::placeholder, textarea::placeholder {
+      color: #888;
+      font-weight: 400;
+    }
+    
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    
+    .submit-btn {
+      width: 100%;
+      height: 48px;
+      background: #34558B;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      color: #fff;
+      font-weight: 600;
+      transition: background 0.3s ease, transform 0.3s ease;
+      margin-top: 10px;
+    }
+    
+    .submit-btn:hover {
+      background: #088697;
+      transform: translateY(-3px);
+    }
+    
+    .geo-btn {
+      background-color: #16a085;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s ease, transform 0.3s ease;
+      width: 100%;
+    }
+    
+    .geo-btn:hover {
+      background-color: #138d75;
+      transform: translateY(-3px);
+    }
+    
+    /* Responsive adjustments */
+    @media screen and (max-width: 650px) {
+      .form-container {
+        padding: 30px 20px;
+        border-radius: 20px;
+      }
+      
+      h2 {
+        font-size: 28px;
+      }
+    }
+    
+    @media screen and (max-width: 400px) {
+      .form-container {
+        padding: 20px 15px;
+      }
+      
+      h2 {
+        font-size: 24px;
+      }
+      
+      .section h3 {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Pet Lover Profile Form</h2>
+    <form action="submitPetLover" method="post">
+
+      <div class="section">
+        <h3>Personal Information</h3>
+        <div class="form-group">
+          <label for="fullName">Full Name:</label>
+          <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address:</label>
+          <input type="email" id="email" name="email" required placeholder="Enter your email address">
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number:</label>
+          <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Pet Details</h3>
+        <div class="form-group">
+          <label for="petsOwned">Pets You Own or Love:</label>
+          <textarea id="petsOwned" name="petsOwned" placeholder="E.g. Dogs, Cats, Rabbits, Birds"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="petInterests">Interests (e.g. adopting, volunteering, donating):</label>
+          <textarea id="petInterests" name="petInterests" placeholder="Describe your interests related to pets"></textarea>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Share Location</h3>
+        <div class="form-group">
+          <label>Share Your Current Location:</label>
+          <button type="button" class="geo-btn" onclick="getLocation()">Get Current Location</button>
+        </div>
+        <div class="form-group">
+          <label for="latitude">Latitude:</label>
+          <input type="text" id="latitude" name="latitude" readonly placeholder="Latitude will appear here">
+        </div>
+        <div class="form-group">
+          <label for="longitude">Longitude:</label>
+          <input type="text" id="longitude" name="longitude" readonly placeholder="Longitude will appear here">
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">Submit Profile</button>
+    </form>
+  </div>
+
+  <script>
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    }
+
+    function showPosition(position) {
+      document.getElementById("latitude").value = position.coords.latitude;
+      document.getElementById("longitude").value = position.coords.longitude;
+    }
+
+    function showError(error) {
+      switch (error.code) {
+        case error.PERMISSION_DENIED:
+          alert("Permission denied. Please allow location access.");
+          break;
+        case error.POSITION_UNAVAILABLE:
+          alert("Location information is unavailable.");
+          break;
+        case error.TIMEOUT:
+          alert("The request to get your location timed out.");
+          break;
+        default:
+          alert("An unknown error occurred.");
+      }
+    }
+  </script>
+</body>
+</html>
